@@ -13,9 +13,12 @@
 #include <libft.h>
 #include <unistd.h>
 
-void	ft_putstr_fd(char *s, int fd)
+int	ft_putstr_fd(char *s, int fd)
 {
-	if (fd >= 0)
-		while (*s)
-			write(fd, s++, 1);
+	int	ret;
+
+	ret = 0;
+	while (*s)
+		ret += ft_putchar_fd(*s++, fd);
+	return (ret);
 }
