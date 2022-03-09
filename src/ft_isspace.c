@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   libft - ft_isspace.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xbeheydt <xbeheydt@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,22 +12,7 @@
 
 #include <libft.h>
 
-int	ft_atoi(const char *nptr)
+int	ft_isspace(int c)
 {
-	int	ret;
-	int	sign;
-
-	ret = 0;
-	sign = 1;
-	while (ft_isspace(*nptr) && *nptr != '\0')
-		nptr++;
-	if (*nptr == '-' || *nptr == '+')
-	{
-		if (*nptr == '-')
-			sign = -1;
-		nptr++;
-	}
-	while (ft_isdigit(*nptr) && *nptr)
-		ret = (ret * 10) + (*nptr++ - '0');
-	return (ret * sign);
+	return ((unsigned)c == ' ' || (((unsigned)c - '\t') < 5));
 }
