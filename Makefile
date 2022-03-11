@@ -1,7 +1,7 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
+#    libft - Makefile                                   :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: xbeheydt <xbeheydt@42lausanne.ch>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
@@ -19,15 +19,18 @@ LIB_DIR			?= ${BUILD_DIR}/lib
 EXE_DIR			?= ${BUILD_DIR}/bin
 SRC_DIR			= $(CURDIR)/src
 HEADER_DIR		= $(CURDIR)/include
+TEST_DIR		= $(CURDIR)/tests
 
 NAME			= ${LIB_DIR}/libft.a
 
-HEADERS			= libft/include/libft.h
+HEADERS			= libft/include/libft.h \
+				  libft/include/get_next_line.h \
+				  libft/include/ft_printf.h
 INCLUDES		= $(addprefix ${INCLUDE_DIR}/, $(addsuffix .h, $(notdir $(basename ${HEADERS}))))
-SRCS			= $(wildcard ${SRC_DIR}/ft_*.c ${SRC_DIR}/*/ft_*.c)
+SRCS			= $(wildcard ${SRC_DIR}/ft_*.c ${SRC_DIR}/ft_printf/*.c ${SRC_DIR}/get_next_line/*.c)
 OBJS 			= $(addprefix $(OBJ_DIR)/,$(addsuffix .o,$(notdir $(basename $(SRCS)))))
 
-SRCS_TEST		= $(wildcard ${SRC_DIR}/.test_*.c ${SRC_DIR}/*/.test_*.c)
+SRCS_TEST		= $(wildcard ${TEST_DIR}/.*.c ${TEST_DIR}/*/.*.c)
 
 CC				= gcc
 CFLAGS			= -Wall -Werror -Wextra
@@ -35,6 +38,7 @@ ifdef DEBUG
 CFLAGS			+= -g3
 endif
 IFLAGS			= -I${HEADER_DIR}
+IFLAGSTEST		= ${IFLAGS} -Isrc/ft_printf -Isrc/get_next_line -I${TEST_DIR}
 
 VPATH			= $(sort $(dir $(SRCS)))
 
@@ -65,18 +69,18 @@ clean:
 	${RM} ${OBJS}
 
 fclean: clean
-	$(RM) $(LIB_DIR)/${NAME}
+	$(RM) ${NAME}
 	$(RM) $(INCLUDES)
-	$(RM) ${EXE_DIR}/a.out
+	$(RM) ${EXE_DIR}/tests
 
 del-build:
 	$(RM) ${BUILD_DIR}
 
 re: fclean all
 
-tests: $(EXE_DIR)/a.out
-
-$(EXE_DIR)/a.out: re
-	$(MKDIR) ${EXE_DIR}
-	$(CC) ${CFLAGS} ${IFLAGS} -I. -L${LIB_DIR} ${SRCS_TEST} .test_main.c -lft
-	./${EXE_DIR}/a.out
+ARGS	?=
+tests: $(NAME)
+	@$(MKDIR) ${EXE_DIR}
+	@$(CC) -w ${IFLAGSTEST} -L${LIB_DIR} -o ${EXE_DIR}/tests ${SRCS_TEST} -lft
+	@echo "Libft test"
+	@${EXE_DIR}/tests ${ARGS}

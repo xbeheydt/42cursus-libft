@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   .tests.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xbeheydt <xbeheydt@42lausanne.ch>           +#+  +:+       +#+        */
+/*   By: xbeheydt <xbeheydt@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 11:02:01 by xbeheydt          #+#    #+#             */
 /*   Updated: 2022/03/09 11:02:01 by xbeheydt         ###   ########.ch       */
@@ -17,8 +17,8 @@
 # include <stdlib.h>
 
 /* Commons macros */
-# define SPACE			" "
-# define ENDL			"\n"
+# define SPACE	" "
+# define ENDL	"\n"
 
 enum state_s
 {
@@ -26,18 +26,23 @@ enum state_s
 	STOP,
 	END,
 	SKIP,
-	OK,
-	KO
+	OK = 0,
+	KO = 1
 };
 
 typedef struct unit_s
 {
-	const char	*testName;
+	const char	*name;
 	int			(*testFcn)(void *);
 	void		(*setupFcn)(void *);
 	void		(*teardownFcn)(void *);
 	int			state;
 }	unit_t;
+
+typedef struct args_s
+{
+	char	**tests;
+}	args_t;
 
 /* GUI helpers */
 
@@ -62,26 +67,18 @@ typedef struct unit_s
 # define BG_CYAN		"\033[46m"
 # define BG_WHITE		"\033[47m"
 
-void	print_skip(const char *s, const char *endl)
-{
-	dprintf(1, "[%sSKIP%s] %s%s", FG_YELLOW, RESET_COLOR, s, endl);
-}
-void	print_ok(const char *s, const char *endl)
-{
-	dprintf(1, "[%sOK%s] %s%s", FG_GREEN, RESET_COLOR, s, endl);
-}
-void	print_ko(const char *s, const char *endl)
-{
-	dprintf(1, "[%sKO%s] %s%s", FG_RED, RESET_COLOR, s, endl);
-}
+void	print_skip(const char *s, const char *endl);
+void	print_ok(const char *s, const char *endl);
+void	print_ko(const char *s, const char *endl);
 
 /* Main API */
 # define TEST_FCN(fcn)	#fcn, fcn
 # define TEST_END { NULL, NULL, NULL, NULL, END }
 
-int	__main(int argc, const char *argv[])
-{
-	(void)argc; (void)argv;
-}
+int		__main(int argc, const char *argv[], unit_t *tests);
+
+/* test functions and macros */
+int		unit_test(int condition, const char *msg);
+char	*catch_fd(int redirect, int fd);
 
 #endif /* _TESTS_H */

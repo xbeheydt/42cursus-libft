@@ -14,7 +14,7 @@
 
 int	ft_tolower(int c)
 {
-	if ((unsigned)c - 'A' < 26)
+	if (ft_isupper(c))
 		c -= 'A' - 'a';
 	return (c);
 }

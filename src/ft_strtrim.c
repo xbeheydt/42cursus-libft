@@ -6,13 +6,13 @@
 /*   By: xbeheydt <xbeheydt@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 15:38:26 by xbeheydt          #+#    #+#             */
-/*   Updated: 2021/11/17 09:40:48 by xbeheydt         ###   ########.fr       */
+/*   Updated: 2021/11/17 09:40:48 by xbeheydt         ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 
-static int	ft_chrcmp(char c, char const *set)
+static int	ft_setcmp(char c, char const *set)
 {
 	while (*set)
 		if (c == *set++)
@@ -20,34 +20,25 @@ static int	ft_chrcmp(char c, char const *set)
 	return (0);
 }
 
-static int	ft_findpos(char const *str, char const *set, int pos)
+static char	*ft_lastchr(char const *s)
 {
-	int	ret;
-
-	ret = pos;
-	while (str[ret])
-	{
-		if (pos == 0 && !ft_chrcmp(str[ret], set))
-			break ;
-		if (pos > 0 && ft_chrcmp(str[ret], set))
-			break ;
-		++ret;
-	}
-	return (ret);
+	while (*s)
+		++s;
+	return ((char *)--s);
 }
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	int		start;
-	int		end;
-	size_t	s1_len;
+	char	*start;
+	char	*end;
 
-	s1_len = ft_strlen(s1);
-	start = ft_findpos(s1, set, 0);
-	if (s1_len == 0)
-		return (ft_substr(s1, 0, 0));
-	if (ft_strlen(set) == 0)
-		return (ft_substr(s1, 0, s1_len));
-	end = ft_findpos(s1, set, start + 1);
-	return (ft_substr(s1, start, end - start));
+	start = (char *)s1;
+	end = ft_lastchr(s1);
+	if (end - start == 0)
+		return (ft_strdup(s1));
+	while (ft_setcmp(*start, set))
+		++start;
+	while (ft_setcmp(*end, set))
+		--end;
+	return (ft_substr(s1, start - s1, end - start + 1));
 }
