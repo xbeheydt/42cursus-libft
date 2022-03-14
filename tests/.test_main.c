@@ -35,6 +35,8 @@ int	test_ft_lstlast(void *);
 int	test_ft_lstmap(void *);
 int	test_ft_lstnew(void *);
 int	test_ft_lstsize(void *);
+int	test_ft_lstpop_front(void *);
+int	test_ft_lstpop_back(void *);
 int	test_ft_memchr(void *);
 int	test_ft_memcmp(void *);
 int	test_ft_memcpy(void *);
@@ -123,6 +125,8 @@ static unit_t	tests[] = {
 	{ TEST_FCN(test_ft_lstmap), NULL, NULL, RUN },
 	{ TEST_FCN(test_ft_lstnew), NULL, NULL, RUN },
 	{ TEST_FCN(test_ft_lstsize), NULL, NULL, RUN },
+	{ TEST_FCN(test_ft_lstpop_front), NULL, NULL, RUN },
+	{ TEST_FCN(test_ft_lstpop_back), NULL, NULL, RUN },
 	{ TEST_FCN(test_ft_memchr), NULL, NULL, RUN },
 	{ TEST_FCN(test_ft_memcmp), NULL, NULL, RUN },
 	{ TEST_FCN(test_ft_memcpy), NULL, NULL, RUN },
