@@ -186,7 +186,6 @@ char	*catch_fd(int redirect, int fd)
 	int			opt = 1;
 	if (redirect)
 	{
-		setbuf(stdout, NULL);
 		pipe(p);
 		fddup = dup(fd);
 		dup2(p[1], fd);
@@ -194,6 +193,7 @@ char	*catch_fd(int redirect, int fd)
 	}
 	else
 	{
+		fflush(stdout);
 		while ((s = read(p[0], buf, 1024)) > 0)
 		{
 			ret = realloc(ret, (sr + s + 1) * sizeof(char));
