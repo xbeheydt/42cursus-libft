@@ -85,6 +85,5 @@ tests: $(NAME)
 	@echo "Libft test"
 	@${EXE_DIR}/tests ${ARGS}
 
-
 ctest:
 	@$(MKDIR) build; cd build; cmake ..; make 42cursus-libft-tests; ctest $(ARGS)
