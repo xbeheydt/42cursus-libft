@@ -80,6 +80,7 @@ set(
 	"${PROJECT_SOURCE_DIR}/src/ft_printf/parser.c"
 	"${PROJECT_SOURCE_DIR}/src/ft_printf/string.c"
 	"${PROJECT_SOURCE_DIR}/src/ft_printf/utils.c"
+	"${PROJECT_SOURCE_DIR}/src/ft_atol.c"
 )
 
 # Create static lib target
