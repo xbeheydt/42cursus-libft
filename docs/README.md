@@ -7,16 +7,16 @@
 	Created: 2022/02/21
 
 -->
-# 42 Cursus - Push Swap
+# 42 Cursus - Libft
 
-Ce projet demande le développement d'une application de trie de pile. Les
-contraintes sont d'avoir uniquement deux piles de données avec une non
-duplication des données et la limitation à des types d'opérations.
-_Ce projet est fortement associé à la manière de coder en assembleur._
+It's first bigger 42 project. Make your own lib named **libft**.
 
-> Le projet n'autorise pas l'utilisation de la `libft`.
+My libft includes `ft_printft` and `get_next_line` too.
 
-## Sommaire
+## Summary
 
-- [Détails et Explicatoions](./DETAILS.md)
-- [Liens et Documentations](./LINKS.md)
+- [String](STRING.md)
+- [Memory](MEMORY.md)
+- [Converter](CONVERTERS.md)
+- [IO](IO.md)
+- [Linked Lists](LINKED_LISTS.md)
