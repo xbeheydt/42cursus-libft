@@ -3,10 +3,9 @@
 #
 cmake_minimum_required (VERSION 3.8)
 
-set(NAME libft)
 
 project (
-	"42cursus-${NAME}"
+	"42cursus-libft"
 	VERSION 0.1.0
 )
 enable_testing()
@@ -84,9 +83,9 @@ set(
 )
 
 # Create static lib target
-add_library(libft STATIC ${HEADER_FILES} ${SOURCE_FILES})
+add_library(ft STATIC ${HEADER_FILES} ${SOURCE_FILES})
 target_include_directories(
-	libft
+	ft
 	PUBLIC
 	"${PROJECT_SOURCE_DIR}/include"
 )
