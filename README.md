@@ -9,6 +9,8 @@
 -->
 # 42 Cursus - Libft
 
+_TODO: add badges_
+
 It's first bigger 42 project. Make your own lib named **libft**.
 
 My libft includes `ft_printft` and `get_next_line` too.
@@ -31,15 +33,17 @@ make ft
 
 **make**
 
-_In case of normal dev at 42SChool._
+_In case of normal dev at 42School._
 
 ```bash
 make
 ```
 
-> Static library can be found in `<repo>/build/lib/libft.a`
+> By default static library can be found in `<repo>/build/lib/libft.a`
 > and headers in `<repo>/build/include`.
 
 ## API Documentation
+
+_TODO : in progress..._
 
 For more informations go to [summary](./docs/README.md).
