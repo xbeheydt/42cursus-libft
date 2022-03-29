@@ -34,11 +34,15 @@ SRCS_TEST		= $(wildcard ${TEST_DIR}/.*.c ${TEST_DIR}/*/.*.c)
 
 CC				= gcc
 CFLAGS			= -Wall -Werror -Wextra
-ifdef DEBUG
-CFLAGS			+= -g3
-endif
+CDEBUG			= -g3 -fsanitize=address
 IFLAGS			= -I${HEADER_DIR}
-IFLAGSTEST		= ${IFLAGS} -Isrc/ft_printf -Isrc/get_next_line -I${TEST_DIR}
+ITESTS			= ${IFLAGS} -Isrc/ft_printf -Isrc/get_next_line -I${TEST_DIR}
+
+ifeq ($(uname -s), Linux)
+	GDG = gdb
+else
+	GDB = lldb --batch -o run
+endif
 
 VPATH			= $(sort $(dir $(SRCS)))
 
@@ -79,11 +83,18 @@ del-build:
 re: fclean all
 
 ARGS	?=
+dbgtests: CFLAGS += ${CDEBUG}
+dbgtests: $(NAME)
+	@$(MKDIR) ${EXE_DIR}
+	@$(CC) -w ${ITESTS} -L${LIB_DIR} -o ${EXE_DIR}/tests ${SRCS_TEST} -lft
+	@echo "Libft test"
+	@$(GDB) ${EXE_DIR}/tests ${ARGS}
+
 tests: $(NAME)
 	@$(MKDIR) ${EXE_DIR}
-	@$(CC) -w ${IFLAGSTEST} -L${LIB_DIR} -o ${EXE_DIR}/tests ${SRCS_TEST} -lft
+	@$(CC) -w ${ITESTS} -L${LIB_DIR} -o ${EXE_DIR}/tests ${SRCS_TEST} -lft
 	@echo "Libft test"
 	@${EXE_DIR}/tests ${ARGS}
 
 ctest:
-	@$(MKDIR) build; cd build; cmake ..; make 42cursus-libft-tests; ctest $(ARGS)
+	@$(MKDIR) ${BUILD_DIR}; cd ${BUILD_DIR}; cmake ..; make 42cursus-libft-tests; ctest $(ARGS)
